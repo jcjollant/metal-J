@@ -1,6 +1,6 @@
 package org.finasoft.metal.example.command_line_trading;
 
-import org.finasoft.metal.adapter.london_stock_exchange.NormalizedMilleniumOrderSender;
+import org.finasoft.metal.adapter.fix.NormalizedFIXOrderSender;
 import org.finasoft.metal.core.normalization.*;
 import org.finasoft.metal.core.normalization.message.NewOrderSingle;
 import org.finasoft.metal.core.normalization.values.OrdType;
@@ -13,19 +13,20 @@ import java.util.Scanner;
  */
 public class Main {
 
-    static Utility utility;
+    static TimeUtility timeUtility;
 
     public static void main( String []args) {
         Scanner scanner = new Scanner( System.in);
         String command;
 
         // Instantiate relevant adapter
-        NormalizedMilleniumOrderSender adapter = new NormalizedMilleniumOrderSender();
+//        IOrderSender adapter = new NormalizedMilleniumOrderSender();
+        IOrderSender adapter = new NormalizedFIXOrderSender();
 
         // register our listener
-        adapter.registerObserver(new CommandLineObserver());
+        adapter.setObserver(new CommandLineObserver());
 
-        utility = new Utility();
+        timeUtility = new TimeUtility();
 
         System.out.println( "---------------------------------------------------------------");
         System.out.println( " Please type in your commands then \"exit\" when you are done");
@@ -77,7 +78,7 @@ public class Main {
         else throw new ParsingException( "Unknown Side. Should be \"buy\" or \"sell\" was " + tokens[0]);
 
         // Transacttime : now
-        String nowUTC = utility.nowUTC();
+        String nowUTC = timeUtility.nowUTC();
 
         // Quantity, 2nd position
         OrderQtyData orderQtyData = OrderQtyData.fromOrderQty(tokens[1]);

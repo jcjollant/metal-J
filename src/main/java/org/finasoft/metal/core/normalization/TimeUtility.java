@@ -4,10 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-public class Utility {
+public class TimeUtility {
     private SimpleDateFormat utcDateFormat;
 
-    public Utility() {
+    public TimeUtility() {
         utcDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
