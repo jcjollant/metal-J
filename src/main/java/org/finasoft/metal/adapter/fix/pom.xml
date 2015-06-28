@@ -12,6 +12,7 @@
         <dependency>
             <groupId>org.quickfixj</groupId>
             <artifactId>quickfixj-parent</artifactId>
+            <version>1.6.0</version>
         </dependency>
     </dependencies>
 
