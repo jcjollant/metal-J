@@ -2,6 +2,7 @@ package org.finasoft.metal.example.command_line_trading;
 
 import org.finasoft.metal.adapter.fix.NormalizedFIXOrderSender;
 import org.finasoft.metal.core.ConfigurationException;
+import org.finasoft.metal.core.SendingException;
 import org.finasoft.metal.core.normalization.*;
 import org.finasoft.metal.core.normalization.message.NewOrderSingle;
 import org.finasoft.metal.core.normalization.values.OrdType;
@@ -20,9 +21,12 @@ public class Main {
         Scanner scanner = new Scanner( System.in);
         String command;
 
+        System.out.println("Working Directory = " + System.getProperty("user.dir"));
+        System.out.println("Java version = " + System.getProperty("java.version"));
+
         // Instantiate relevant adapter
-//        IOrderSender adapter = new NormalizedMilleniumOrderSender();
-        IOrderSender adapter = new NormalizedFIXOrderSender();
+        // These values are hardcoded to match our local instance of Quickfix Executor
+        IOrderSender adapter = new NormalizedFIXOrderSender("localhost", 5001, "CLIENT1", "EXECUTOR");
 
         // register our listener
         adapter.setObserver(new CommandLineObserver());
@@ -49,9 +53,11 @@ public class Main {
             try {
                 NewOrderSingle nos = parseNOS(command);
 
-                System.out.println( "New Order : " + nos.toString() );
+                adapter.send(nos);
             } catch (ParsingException e) {
                 System.out.println("Parsing failed because " + e.getMessage());
+            } catch (SendingException e) {
+                System.out.println("Sending failed because " + e.getMessage());
             }
         } while( !"exit".equals( command));
     }
@@ -77,10 +83,11 @@ public class Main {
         Instrument instrument = Instrument.fromSymbol( tokens[2]);
 
         // Side, 1st position
+        // Can be any of buy, sell with any case
         Side side;
-        if( "buy".equals(tokens[0])) {
+        if( "buy".equalsIgnoreCase(tokens[0])) {
             side = Side.BUY;
-        } else if( "sell".equals(tokens[0])) {
+        } else if( "sell".equalsIgnoreCase(tokens[0])) {
             side = Side.SELL;
         }
         else throw new ParsingException( "Unknown Side. Should be \"buy\" or \"sell\" was " + tokens[0]);

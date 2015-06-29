@@ -1,6 +1,7 @@
 package org.finasoft.metal.core.normalization;
 
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * loose replication of a fix message structure
@@ -20,6 +21,8 @@ public class PseudoFIXMessage {
     public String getField( Field field) {
         return fields.get( field);
     }
+
+    public Set<Field> getFields() { return fields.keySet(); }
 
     @Override
     public String toString() {

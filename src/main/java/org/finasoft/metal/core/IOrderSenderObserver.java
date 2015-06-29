@@ -4,4 +4,5 @@ import org.finasoft.metal.core.normalization.message.ExecutionReport;
 
 public interface IOrderSenderObserver {
     public void onExecutionReport( ExecutionReport er);
+    public void onStatusChange( AdapterStatus adapterStatus);
 }

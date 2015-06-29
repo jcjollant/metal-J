@@ -15,7 +15,7 @@
         <!-- Quick FIX is needed by FIX adapter -->
         <dependency>
             <groupId>org.quickfixj</groupId>
-            <artifactId>quickfixj</artifactId>
+            <artifactId>quickfixj-core</artifactId>
             <version>1.6.0</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/quickfixj-core-1.6.0.jar</systemPath>

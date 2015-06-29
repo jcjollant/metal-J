@@ -17,4 +17,12 @@ public enum Field {
     public int getNumber() {
         return number;
     }
+
+    public static Field parseInt( int value) {
+        for( Field field : Field.values()) {
+            if( field.getNumber() == value) return field;
+        }
+
+        return null;
+    }
 }

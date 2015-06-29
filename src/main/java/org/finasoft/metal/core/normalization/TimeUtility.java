@@ -8,7 +8,7 @@ public class TimeUtility {
     private SimpleDateFormat utcDateFormat;
 
     public TimeUtility() {
-        utcDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        utcDateFormat = new SimpleDateFormat("yyyyMMdd-HH:mm:ss");
         utcDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
     }
 
