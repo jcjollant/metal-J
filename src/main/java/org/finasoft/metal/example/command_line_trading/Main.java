@@ -1,6 +1,7 @@
 package org.finasoft.metal.example.command_line_trading;
 
 import org.finasoft.metal.adapter.fix.NormalizedFIXOrderSender;
+import org.finasoft.metal.core.ConfigurationException;
 import org.finasoft.metal.core.normalization.*;
 import org.finasoft.metal.core.normalization.message.NewOrderSingle;
 import org.finasoft.metal.core.normalization.values.OrdType;
@@ -25,6 +26,13 @@ public class Main {
 
         // register our listener
         adapter.setObserver(new CommandLineObserver());
+
+        try {
+            adapter.start();
+        } catch (ConfigurationException e) {
+            System.out.println( "Could not start adapter " + adapter.getName() + " because " + e.getMessage());
+            return;
+        }
 
         timeUtility = new TimeUtility();
 

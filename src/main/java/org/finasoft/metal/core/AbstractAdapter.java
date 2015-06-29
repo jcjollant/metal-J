@@ -3,10 +3,10 @@ package org.finasoft.metal.core;
 /**
  * This is the mother base class for all adapters
  */
-public abstract class Adapter {
+public abstract class AbstractAdapter {
     protected String name;
 
-    Adapter( String name) {
+    protected AbstractAdapter(String name) {
         this.name = name;
     }
 

@@ -1,6 +1,7 @@
 package org.finasoft.metal.core;
 
 public interface IAdapter {
-    void start();
-    void stop();
+    public String getName();
+    public void start() throws ConfigurationException;
+    public void stop();
 }
